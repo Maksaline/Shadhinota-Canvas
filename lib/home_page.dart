@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:ui' as ui;
-import 'package:permission_handler/permission_handler.dart';
 
 import 'about.dart';
 
@@ -410,11 +409,29 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _addTextToImage() async {
     if(_imageFile == null) return;
-    // Permission.storage.request().isDenied.then((value){
-    //   if(value){
-    //     openAppSettings();
-    //   }
-    // });
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 20),
+                Text("Adding Text..."),
+              ],
+            ),
+          ),
+        );
+      },
+    );
 
     var imageWidth = image?.width;
     var imageHeight = image?.height;
@@ -464,11 +481,13 @@ class _HomePageState extends State<HomePage> {
       savingBuffer = buffer;
       _imageFile = file;
     });
+    Navigator.pop(context);
   }
 
   Future<void> saveToGallery() async {
     await GallerySaver.saveImage(path, albumName: 'ShadhinotaCanvas');
     const snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
       content: Text('Image saved to Gallery'),
       duration: Duration(seconds: 1),
     );
