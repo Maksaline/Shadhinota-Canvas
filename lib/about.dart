@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class About extends StatefulWidget {
@@ -16,25 +17,25 @@ class _AboutState extends State<About> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(image: AssetImage('assets/makhon.png'), width: 150, height: 150,),
-            Text('Developed by MAKHON', style: TextStyle(fontFamily: 'AbuSayed', fontSize: 20),),
+            const Image(image: AssetImage('assets/makhon.png'), width: 150, height: 150,),
+            const Text('Developed by Maksaline', style: TextStyle(fontFamily: 'AbuSayed', fontSize: 20),),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Image.asset('assets/codeforces.png', width: 30, height: 30),
+                  icon: const Icon(Bootstrap.globe, size: 30),
                   onPressed: () {
-                    _launchCF();
+                    _launchPortfolio();
                   },
                 ),
                 IconButton(
-                  icon: Image.asset('assets/fb.png', width: 30, height: 30),
+                  icon: Brand(Brands.facebook, size: 30),
                   onPressed: () {
                     _launchFB();
                   },
                 ),
                 IconButton(
-                  icon: Image.asset('assets/github.png', width: 30, height: 30),
+                  icon: Brand(Brands.github, size: 30),
                   onPressed: () {
                     _launchGithub();
                   },
@@ -49,6 +50,13 @@ class _AboutState extends State<About> {
 
   Future<void> _launchCF() async {
     Uri url = Uri.parse('https://codeforces.com/profile/Makhon58');
+    if (!await launchUrl(url)) {
+      // throw Exception('Could not launch $url');
+    }
+  }
+
+  Future<void> _launchPortfolio() async {
+    Uri url = Uri.parse('https://maksaline.com');
     if (!await launchUrl(url)) {
       // throw Exception('Could not launch $url');
     }

@@ -4,7 +4,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:gallery_saver/gallery_saver.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -366,9 +366,9 @@ class _HomePageState extends State<HomePage> {
     final canvas = Canvas(recorder);
     final paint = Paint();
     paint.color = canvasColor;
-    canvas.drawRect(const Rect.fromLTWH(0, 0, 800, 800), paint);
+    canvas.drawRect(const Rect.fromLTWH(0, 0, 1080, 1080), paint);
     final picture = recorder.endRecording();
-    final img = await picture.toImage(800, 800);
+    final img = await picture.toImage(1080, 1080);
 
     final Directory? directory = await getTemporaryDirectory();
     path = '${directory?.path}/image$cnt.png';
@@ -485,7 +485,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> saveToGallery() async {
-    await GallerySaver.saveImage(path, albumName: 'ShadhinotaCanvas');
+    // await GallerySaver.saveImage(path, albumName: 'ShadhinotaCanvas');
+    final result = await ImageGallerySaverPlus.saveImage(
+        savingBuffer,
+      name: "ShadhinotaCanvas/image"
+    );
+    print(result);
     const snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
       content: Text('Image saved to Gallery'),

@@ -43,8 +43,8 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   image_picker: ^1.1.2
   url_launcher: ^6.3.0
-  gallery_saver:
-    path: lib/packages/gallery_saver-2.3.2
+  icons_plus: ^5.0.0
+  image_gallery_saver_plus: ^4.0.1
 
 dev_dependencies:
   flutter_test:
